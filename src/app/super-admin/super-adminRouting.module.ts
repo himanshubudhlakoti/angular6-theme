@@ -9,13 +9,17 @@ export const routes: Routes = [
     {
         path : "" ,component : LandingComponent,
         data: {
-            title: 'ADDUSER'
+            title: 'superadmin'
           },
         children :
         [   {path  : "",redirectTo :"listuser"  } ,
-            {path : "adduser" ,component : AddUserComponent},
+            {path : "adduser" ,component : AddUserComponent, data: {
+                title: 'adduser'
+              },},
             {
-                path : "listuser" ,component : ListuserComponent
+                path : "listuser" ,component : ListuserComponent, data: {
+                    title: 'listuser'
+                  },
             }
         ]
     }
