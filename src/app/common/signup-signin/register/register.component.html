@@ -32,6 +32,10 @@
                   </div>
                   <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
                 </div>
+                <div class="input-group mb-4">
+                 
+                  <input type="file" name="file" class="form-control" (change)="getFileData($event)" required>
+                </div>
                 <button type="button" class="btn btn-block btn-success">Create Account</button>
               </form>
             </div>
