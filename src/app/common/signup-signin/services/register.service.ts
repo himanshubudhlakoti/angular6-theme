@@ -8,7 +8,7 @@ export class RegistationService
     register(fileData)
     {  
         console.log("file data at service ",fileData);
-       return this.httpClient.post("http://localhost:3000/uploadFile",fileData);
+       return this.httpClient.post("http://localhost:3000/api/uploadFile",fileData);
     
     }
 }

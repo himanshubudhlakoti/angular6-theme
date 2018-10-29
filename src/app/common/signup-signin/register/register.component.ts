@@ -1,4 +1,6 @@
+import { FormBuilder, Validator, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+
 import { RegistationService } from '../services/register.service';
 
 @Component({
@@ -6,28 +8,41 @@ import { RegistationService } from '../services/register.service';
   templateUrl: 'register.component.html'
 })
 export class RegisterComponent {
-
-  constructor(private RegistationService : RegistationService) { }
-
-
-  getFileData(e)
-  {
-    
-    let data ={
-    username : "Himanshu"
-      }
-    const _formData = new FormData();
-    let selectedFile = e.target.files[0];
-    console.log(selectedFile)
-    _formData.append('file', selectedFile);
-    _formData.append('data', data.username);
-    _formData.append('asdfas', data.username);
-
-
-    this.RegistationService.register(_formData).subscribe(res=>{
-
-    })  
+  public selectedFile: any;
+  public userRegistation: FormGroup;
+  constructor(
+    private RegistationService: RegistationService,
+    private FormBuilder: FormBuilder) {
+    this.userRegistation = this.FormBuilder.group({
+      userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+      userEmail: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+      userPassword: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+    });
 
   }
+
+  getFileData(e) {
+    this.selectedFile = e.target.files[0];
+    console.log(this.selectedFile)
+  }
+  saveUserData() {
+
+    let data = {
+      userName: this.userRegistation.controls.userName.value,
+      userEmail: this.userRegistation.controls.userEmail.value,
+      userPassword: this.userRegistation.controls.userPassword.value,
+    }
+    const _formData = new FormData();
+    _formData.append('file', this.selectedFile);
+    _formData.append('userName', data.userName);
+    _formData.append('userEmail', data.userEmail);
+    _formData.append('userPassword', data.userPassword);
+    console.log("data>>", data);
+
+    this.RegistationService.register(_formData).subscribe(res => {
+
+    })
+  }
+
 
 }

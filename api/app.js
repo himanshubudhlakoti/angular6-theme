@@ -3,17 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-
-var multer = require("multer");
-
-
-
+var cors = require("cors");
+// database connection
+var db = require("./db");
+var ctrlRoutes = require("./ctrlRoutes");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-var cors = require("cors");
+// always use cors before bodyparser/cookieparser /express.urlencoded
 app.use(cors())
 
 // view engine setup
@@ -26,27 +24,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    console.log("FILE>>>" , file);
-    cb(null, './public/images')
-  },
-  filename: function (req, file, cb) {
-    console.log("filename ", file.fieldname);
-    cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname));
-  }
-})
 
-var upload = multer({ storage: storage }).single('file')
+app.use("/api",ctrlRoutes);
 
-
-app.use("/uploadFile",upload,(req ,res , next)=>{
-  console.log("req>>>>>","localhost:3000/images"+req.file.filename);
-  console.log("???????",req.body)
-  res.send("localhost:3000/images/"+req.file.filename);
-});
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use("/uploadFile",upload,(req ,res , next)=>{
+//   console.log("req>>>>>","localhost:3000/images"+req.file.filename);
+//   console.log("???????",req.body)
+//   res.send("localhost:3000/images/"+req.file.filename);
+// // });
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
