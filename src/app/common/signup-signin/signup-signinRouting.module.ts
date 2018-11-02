@@ -5,14 +5,14 @@ import { RegisterComponent } from './register/register.component';
 
 
 const routes : Routes = [
-   
-    {
-        path :"registration" ,component : RegisterComponent
-    },
     {
         path :"" ,component : LoginComponent,pathMatch: 'full',
 
+    },
+    {
+        path :"registration" ,component : RegisterComponent
     }
+    
     
 ]
 

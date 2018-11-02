@@ -2,15 +2,18 @@ import { Component } from '@angular/core';
 import { RouterModule ,Router  } from '@angular/router';
 
 import { Validators, FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
 })
 export class LoginComponent {
-  public loginForm: FormGroup
+  public loginForm: FormGroup;
+  public user : any = {};
 
-  constructor(private formbuilder : FormBuilder, private router : Router)
+  constructor(private formbuilder : FormBuilder, private router : Router,
+              private LoginService : LoginService)
   {
       this.loginForm =this.formbuilder.group({
         userEmail: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
@@ -19,10 +22,13 @@ export class LoginComponent {
       })
   }
   ngOnInit()
-  {
+  { 
     if(localStorage.getItem("token"))
     {
       this.router.navigate(["auth/superadmin/listuser"]);
+    }
+    else{
+      this.router.navigate(["login"]);
     }
   }
   login()
@@ -32,6 +38,13 @@ export class LoginComponent {
       userPassword : this.loginForm.controls.userPassword.value
     }
     console.log("logindata>>>>",loginData);
+      this.LoginService.login(loginData).subscribe(res=>{
 
+    })
+
+  }
+  saveData()
+  {
+    console.log("user data is", this.user)
   }
  }

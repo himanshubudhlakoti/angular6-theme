@@ -4,7 +4,8 @@ var userDetailModel = mongoose.model("userDetail");
 var crypto_ctrl = require("../crypto_ctrl/security");
 module.exports = 
 {
-    addUser : addUser
+    addUser : addUser,
+    login : login
 }
 function addUser(req ,res)
 {
@@ -51,4 +52,24 @@ function addUser(req ,res)
         console.log("add user exception is>>>>>>>>>>", e);
     }
 
+}
+function login()
+{
+    userDetailModel.find({user_email : req.body.userEmail , user_password : req.body.userPassword},(err ,data)=>
+    {
+        if(err)
+        {
+            res.json({
+                status: 400,
+                data: 'err'
+            });
+        }
+        else if(data)
+        {
+            res.json({
+                status: 200,
+                data: 'validuser'
+            });
+        }
+    })
 }

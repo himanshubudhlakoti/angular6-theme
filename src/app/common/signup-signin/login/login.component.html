@@ -47,3 +47,10 @@
     </div>
   </main>
 </div>
+
+<div>
+    <form (ngSubmit) = "saveData()">
+      <input type="text" [(ngModel)]="user.fname"  name="fname">
+      <input type="submit" value="submit">
+    </form>
+</div>

@@ -12,6 +12,7 @@ import { RouterModule } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { RegistationService } from "./services/register.service";
+import { LoginService } from "./services/login.service";
 
 @NgModule({
     imports :
@@ -27,6 +28,6 @@ import { RegistationService } from "./services/register.service";
     declarations : [SignupSigninComponent,
         LoginComponent,
         RegisterComponent],
-    providers : [RegistationService]
+    providers : [RegistationService ,LoginService]
 })
 export class SignupSigninMoudle {}

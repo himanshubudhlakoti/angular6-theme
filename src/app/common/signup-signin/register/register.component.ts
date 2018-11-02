@@ -1,5 +1,6 @@
-import { FormBuilder, Validator, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { FormBuilder, Validator, FormGroup, Validators } from '@angular/forms';
 
 import { RegistationService } from '../services/register.service';
 
@@ -12,7 +13,8 @@ export class RegisterComponent {
   public userRegistation: FormGroup;
   constructor(
     private RegistationService: RegistationService,
-    private FormBuilder: FormBuilder) {
+    private FormBuilder: FormBuilder,
+    private Router : Router) {
     this.userRegistation = this.FormBuilder.group({
       userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
       userEmail: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
@@ -40,7 +42,11 @@ export class RegisterComponent {
     console.log("data>>", data);
 
     this.RegistationService.register(_formData).subscribe(res => {
-
+      console.log(">>>",res.status);
+      if(res.status === 200)
+      {
+        this.Router.navigate(["/login"]);
+      }
     })
   }
 
