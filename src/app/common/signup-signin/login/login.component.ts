@@ -47,4 +47,9 @@ export class LoginComponent {
   {
     console.log("user data is", this.user)
   }
+
+  helloFile()
+  {
+    console.log("user data is", this.user)
+  }
  }
