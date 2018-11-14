@@ -17,10 +17,10 @@ var storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 })
-var upload = multer({ storage: storage}).single('file');login
+var upload = multer({ storage: storage}).single('file');
 
 router.post("/uploadFile", upload, userController.addUser);
-router.post("/uploadFile",userController.login);
+router.post("/login",userController.login);
 
 
 module.exports = router;

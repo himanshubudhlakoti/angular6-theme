@@ -42,8 +42,8 @@ export class RegisterComponent {
     console.log("data>>", data);
 
     this.RegistationService.register(_formData).subscribe(res => {
-      console.log(">>>",res.status);
-      if(res.status === 200)
+      console.log(">>>",res[status]);
+      if(res[status] === 200)
       {
         this.Router.navigate(["/login"]);
       }

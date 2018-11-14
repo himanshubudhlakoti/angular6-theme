@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
-var userDetailModel = mongoose.model("userDetail");
+// var userDetailModel = mongoose.model("userDetail");
+var userDetailModel = require("../schema/userDetail");
 
 var crypto_ctrl = require("../crypto_ctrl/security");
 module.exports = 
@@ -53,7 +54,7 @@ function addUser(req ,res)
     }
 
 }
-function login()
+function login(req , res)
 {
     userDetailModel.find({user_email : req.body.userEmail , user_password : req.body.userPassword},(err ,data)=>
     {
