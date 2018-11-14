@@ -47,8 +47,7 @@ export class LoginComponent {
   {
     console.log("user data is", this.user)
   }
-
-  helloFile()
+  deleteData()
   {
     console.log("user data is", this.user)
   }
