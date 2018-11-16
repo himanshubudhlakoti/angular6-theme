@@ -40,6 +40,9 @@ export class LoginComponent {
     console.log("logindata>>>>",loginData);
       this.LoginService.login(loginData).subscribe(res=>{
 
+        console.log("LOGIN RESPONSE >>>>>>>>",res);
+
+
     })
 
   }

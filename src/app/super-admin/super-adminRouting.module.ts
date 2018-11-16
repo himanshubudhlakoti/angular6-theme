@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AddUserComponent } from './add-user/add-user.component';
 import { LandingComponent } from '../mainlayout/landing/landing.component';
 import { ListuserComponent } from './listuser/listuser.component';
+import { XslsComponent } from './xsls/xsls.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,9 @@ export const routes: Routes = [
                 path : "listuser" ,component : ListuserComponent, data: {
                     title: 'listuser'
                   },
+            },
+            {
+                path : "xsl" , component : XslsComponent
             }
         ]
     }

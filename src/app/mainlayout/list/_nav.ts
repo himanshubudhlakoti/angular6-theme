@@ -24,6 +24,11 @@ export const navItems = [
     url : "listuser",
     icon: 'fa fa-list'
   },
+  {
+    name : "XSL",
+    url : "xsl",
+    icon: 'fa fa-file'
+  },
  
   
   {

@@ -10,20 +10,28 @@ import { SuperAdminComponent } from './super-admin.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ListuserComponent } from './listuser/listuser.component';
 
+import { SuperAdminServices } from './superAdminServices/usersService';
+import { XslsComponent } from './xsls/xsls.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 @NgModule({
     imports :
     [
         RouterModule,
         SuperAdminRoutingModule,
-        MainLayoutModule
+        MainLayoutModule,
+        FormsModule,
+        CommonModule
         
     ],
-    providers : [],
+    providers : [SuperAdminServices],
     
     declarations :
     [ SuperAdminComponent ,
       AddUserComponent,
-      ListuserComponent
+      ListuserComponent,
+      XslsComponent
      ]
 })
 export class SuperAdminModule{}

@@ -21,6 +21,10 @@ var upload = multer({ storage: storage}).single('file');
 
 router.post("/uploadFile", upload, userController.addUser);
 router.post("/login",userController.login);
+router.get("/generateXls",userController.generateXls);
+router.post("/getAllUsers",userController.getAllUsers);
+
+
 
 
 module.exports = router;
