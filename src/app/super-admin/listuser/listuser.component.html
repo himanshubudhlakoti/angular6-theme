@@ -21,7 +21,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of searchArr">
+            <tr *ngFor="let user of users">
               <td>{{user.user_fname}}</td>
               <td>{{user.user_email}}</td>
               <td>{{user.role}}</td>
@@ -29,7 +29,7 @@
 
               <td>
                 <!-- <span class="badge badge-success">Active</span> -->
-                <label class="switch switch-label switch-success">
+                <label class="switch switch-label switch-danger">
                   <input type="checkbox" class="switch-input" checked>
                   <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                 </label>

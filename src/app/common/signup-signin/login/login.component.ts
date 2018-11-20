@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule ,Router  } from '@angular/router';
+import { Router  } from '@angular/router';
 
 import { Validators, FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { LoginService } from '../services/login.service';
@@ -22,12 +22,14 @@ export class LoginComponent {
       })
   }
   ngOnInit()
-  { 
+  {       console.log("inside login>>>>>");
+
     if(localStorage.getItem("token"))
     {
       this.router.navigate(["auth/superadmin/listuser"]);
     }
     else{
+      console.log("inside login");
       this.router.navigate(["login"]);
     }
   }
@@ -41,6 +43,15 @@ export class LoginComponent {
       this.LoginService.login(loginData).subscribe(res=>{
 
         console.log("LOGIN RESPONSE >>>>>>>>",res);
+        if(res['code'] == 200 )
+        {
+          localStorage.setItem("token" , res.data.token);
+          this.router.navigate(["auth/superadmin"]);
+        }
+        else
+        {
+
+        }
 
 
     })

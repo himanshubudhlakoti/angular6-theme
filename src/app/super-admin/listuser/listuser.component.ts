@@ -28,15 +28,15 @@ export class ListuserComponent implements OnInit {
     this.SuperAdminServices.getAllUsers(this.filter).subscribe(res=>
       {
         this.users =  res.data;
-        this.searchArr = this.users;
-        console.log("getAllUsers res >>>>>>>>>>", this.searchArr);
+        // this.searchArr = this.users;
+        console.log("getAllUsers res >>>>>>>>>>", this.users);
 
       })
   }
   search(data : any)
   { 
     this.filter.searchingData = this.action.search;
-    this.filter.isSearching = this.action.search ? true : false;
+    this.filter.isSearching = this.filter.searchingData ? true : false;
 
     console.log("search >>>" , this.filter);
     this.searchArr =[];

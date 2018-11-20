@@ -3,8 +3,9 @@ var json2xls = require('json2xls');
 var fs = require('fs');
 // var userDetailModel = mongoose.model("userDetail");
 var userDetailModel = require("../schema/userDetail");
-
-var crypto_ctrl = require("../crypto_ctrl/security");
+let constants = require("../utility/constants");
+let crypto_ctrl = require("../crypto_ctrl/security");
+let auth = require("../authToken/auth");
 module.exports = 
 {
     addUser : addUser,
@@ -59,25 +60,48 @@ function addUser(req ,res)
 
 }
 function login(req , res)
-{    
-    userDetailModel.find({user_email : req.body.userEmail , user_password : req.body.userPassword},(err ,data)=>
+{  
+    let userEmail = req.body.userEmail,
+    userPassword = req.body.userPassword,
+    encriptedPassword = crypto_ctrl.encrypt(userPassword),
+    userDataWithToken = {};
+
+    async function login()
     {
-        if(err)
+        await userDetailModel.find({user_email : userEmail , user_password : encriptedPassword},(err ,userData)=>
         {
-            res.json({
-                status: 400,
-                data: 'err'
-            });
-        }
-        else if(data)
-        {
-            res.json({
-                status: 200,
-                data: 'validuser',
-                path : "localhost:3000/assets/111.xlsx"
-            });
-        }
-    })
+            if(err)
+            {
+                constants.errResponse(req ,res);
+            }
+            else if(userData.length > 0)
+            {   
+                let token =  auth.generateToken(userData[0]._id);
+                userDataWithToken.token = token;
+                userDataWithToken. userData = userData;
+                return userDataWithToken;  
+            }
+            else
+            {   
+                constants.notFoundResponse(req ,res ,null);
+            }
+        })
+    }
+    login().then(a=>
+        {   
+            let userId = userDataWithToken.userData[0]._id ;
+            userDetailModel.update({_id : userId},{$set:{token : userDataWithToken.token}}).exec((err , data)=>
+            {
+                if(err)
+                {
+                    constants.errResponse(req ,res);
+                }
+                else
+                {  
+                    constants.successResponse(req , res , userDataWithToken)
+                }
+            })
+        })
 }
 
 function generateXls(req , res)
@@ -102,14 +126,18 @@ function generateXls(req , res)
 
 function getAllUsers(req ,res)
 {   console.log("<<<<<<<<<<inside getAllUsers??>>>>>>>" , req.body);
+
     let pageNumber = req.body.pageNumber,
     limit = req.body.limit,
     skip = (parseInt(pageNumber)-1) *  parseInt(limit),
     isSearching = req.body.isSearching,
-    condition ={}
+    condition ={},
+    searchingData = req.body.searchingData,
+    regex = new RegExp(searchingData); // it will convert string to regex like "searchingData"  to   /searchingData/
     if(isSearching)
-    {   console.log("isSearch>>>>");
-        condition = {}
+    {   
+        condition = {user_email :{$regex : regex ,$options : 'i' }}
+        console.log("isSearch>>>>" , condition);
     }
     
     userDetailModel.find(condition).skip(skip).limit(limit).exec((err ,usersData)=>

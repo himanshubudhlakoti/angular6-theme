@@ -13,6 +13,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { RegistationService } from "./services/register.service";
 import { LoginService } from "./services/login.service";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 
 @NgModule({
     imports :
@@ -27,7 +28,8 @@ import { LoginService } from "./services/login.service";
      ],
     declarations : [SignupSigninComponent,
         LoginComponent,
-        RegisterComponent],
+        RegisterComponent,
+        ForgotPasswordComponent],
     providers : [RegistationService ,LoginService]
 })
 export class SignupSigninMoudle {}

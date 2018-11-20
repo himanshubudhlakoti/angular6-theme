@@ -14,8 +14,6 @@ export class AlwaysAuthGuard implements CanActivate {
     }
   }
   checkLOgin() {
-    if (localStorage.getItem("token")) {
       this.router.navigate(["login"]);
-    }
   }
 }

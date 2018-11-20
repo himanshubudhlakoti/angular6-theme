@@ -26,7 +26,14 @@
                       <button type="submit" class="btn btn-primary px-4">Login</button>
                     </div>
                     <div class="col-6 text-right">
-                      <button type="button" class="btn btn-link px-0">Forgot password?</button>
+                      <button type="button" class="btn btn-link px-0">
+                          <a [routerLink]="['/login/forgot']" preserveQueryParams preserveFragment>
+                            Forgot password?
+                          </a>
+                        
+                        
+                        
+                       </button>
                     </div>
                   </div>
                 </form>
