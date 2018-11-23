@@ -29,6 +29,16 @@ export const navItems = [
     url : "xsl",
     icon: 'fa fa-file'
   },
+  {
+    name : "gallery",
+    url : "gallery",
+    icon: 'fa fa-image'
+  },
+  {
+    name : "Chat",
+    url : "chat",
+    icon: 'fa fa-envelope'
+  },
  
   
   {

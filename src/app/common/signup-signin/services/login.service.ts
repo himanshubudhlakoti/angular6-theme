@@ -8,5 +8,9 @@ export class LoginService
     {  
        return this.httpClient.post("http://localhost:3000/api/login",loginData);
     }
+    forgotPassword(userEmail) : any
+    {  
+       return this.httpClient.post("http://localhost:3000/api/forgotPassword",{userEmail : userEmail});
+    }
     
 }

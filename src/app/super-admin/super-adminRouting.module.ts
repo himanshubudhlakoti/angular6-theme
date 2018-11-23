@@ -5,6 +5,9 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { LandingComponent } from '../mainlayout/landing/landing.component';
 import { ListuserComponent } from './listuser/listuser.component';
 import { XslsComponent } from './xsls/xsls.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { ChatComponent } from './chat/chat.component';
+
 
 export const routes: Routes = [
     {
@@ -24,6 +27,12 @@ export const routes: Routes = [
             },
             {
                 path : "xsl" , component : XslsComponent
+            },
+            {
+                path : "gallery" , component : GalleryComponent
+            },
+            {
+                path : "chat" , component : ChatComponent
             }
         ]
     }

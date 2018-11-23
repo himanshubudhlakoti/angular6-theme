@@ -5,6 +5,13 @@ import { RouterModule } from '@angular/router';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+// global toaster dependencies
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
+// import { SocketIoModule, SocketIoConfig } from 'ng6-socket-io';
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 
 
 // import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -37,17 +44,25 @@ import { AppRoutingModule } from './app.routing';
 
 
 
+
+
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MyInterceptor } from './common/interceptor/interceptor.service';
+
+
+//global model dependecies
+import { ModalModule } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
+
 
 @NgModule({
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
     // AppAsideModule,
-    AppBreadcrumbModule.forRoot(),
     // AppFooterModule,
     // AppHeaderModule,
     // AppSidebarModule,
@@ -58,7 +73,18 @@ import { MyInterceptor } from './common/interceptor/interceptor.service';
     RouterModule,
     // ReactiveFormsModule,
     // FormsModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule,
+
+    // SocketIoModule.forRoot(config) ,//sockets
+
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressBar : true
+    }),
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent
@@ -71,12 +97,17 @@ import { MyInterceptor } from './common/interceptor/interceptor.service';
    
     provide: LocationStrategy,
     useClass: HashLocationStrategy,
+    
   },
   { //for interceptors it is must
     provide: HTTP_INTERCEPTORS,
     useClass: MyInterceptor,
     multi: true
-  }],
+  },
+  BsModalService,
+  
+
+],
   
   bootstrap: [ AppComponent ]
 })

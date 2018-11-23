@@ -25,7 +25,7 @@ export class RegisterComponent {
 
   getFileData(e) {
     this.selectedFile = e.target.files[0];
-    console.log(this.selectedFile)
+    console.log(">>>>>>>>>>>",this.selectedFile);
   }
   saveUserData() {
 

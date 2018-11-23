@@ -1,21 +1,25 @@
 var mongoose = require("mongoose");
 var json2xls = require('json2xls');
 var fs = require('fs');
+var waterfall = require('async-waterfall');
+
 // var userDetailModel = mongoose.model("userDetail");
 var userDetailModel = require("../schema/userDetail");
 let constants = require("../utility/constants");
 let crypto_ctrl = require("../crypto_ctrl/security");
 let auth = require("../authToken/auth");
+let emailController = require("./emailController");
 module.exports = 
 {
     addUser : addUser,
     login : login,
+    forgotPassword : forgotPassword,
     generateXls : generateXls,
     getAllUsers : getAllUsers
 }
 function addUser(req ,res)
 {
-    console.log("req>>>>>","localhost:3000/images"+req.file.filename);
+   // console.log("req>>>>>","localhost:3000/images"+req.file.filename);
     console.log("???????",req.body);
     let imageUrl = "http://localhost:3000/images/"+req.file.filename;
     let encriptedPassword = crypto_ctrl.encrypt(req.body.userPassword);
@@ -85,10 +89,11 @@ function login(req , res)
             {   
                 constants.notFoundResponse(req ,res ,null);
             }
+            return "hello";
         })
     }
     login().then(a=>
-        {   
+        {   console.log("::::::::::::::" ,a);
             let userId = userDataWithToken.userData[0]._id ;
             userDetailModel.update({_id : userId},{$set:{token : userDataWithToken.token}}).exec((err , data)=>
             {
@@ -103,7 +108,26 @@ function login(req , res)
             })
         })
 }
+function forgotPassword(req , res)
+{
+    let userEmail = req.body.userEmail;
+    userDetailModel.find({user_email : userEmail }).exec((err , userData)=>
+    {
+        if(err)
+        {   
+            constants.errResponse(req ,res);
+        }
+        else if(userData.length > 0)
+        {  
+            emailController.sendEmail(req , res , userData);
+        }
+        else
+        {  
+            constants.notFoundResponse(req , res , `${userEmail} is not registered with us please enter registered email`)
+        }
 
+    })
+}
 function generateXls(req , res)
 {
     let fileName = "himanshu";

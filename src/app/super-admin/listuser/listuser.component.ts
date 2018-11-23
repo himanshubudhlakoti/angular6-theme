@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SuperAdminServices} from "../superAdminServices/usersService";
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-listuser',
@@ -7,6 +8,8 @@ import {SuperAdminServices} from "../superAdminServices/usersService";
   styleUrls: ['./listuser.component.scss']
 })
 export class ListuserComponent implements OnInit {
+  public modalRef: BsModalRef;
+
   public users : any = [];
   public action : any = {};
   public searchArr : any = [];
@@ -17,7 +20,7 @@ export class ListuserComponent implements OnInit {
     isSearching : false,
     searchingData :null,
   }
-  constructor(private SuperAdminServices : SuperAdminServices) { }
+  constructor(private SuperAdminServices : SuperAdminServices ,private modal: BsModalService) { }
 
   ngOnInit()
   {
@@ -48,6 +51,11 @@ export class ListuserComponent implements OnInit {
     //   }
     // })
     this.getAllUsers();
+  }
+
+  openModel(template) {
+    console.log("><><<><><<");
+    this.modalRef = this.modal.show(template);
   }
 
 }

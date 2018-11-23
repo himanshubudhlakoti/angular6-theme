@@ -18,12 +18,29 @@ app.use(cors())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use('/', function(req, res , next) {
+//   console.log("inside default>>>>")
+//   res.render('index');
+//  // res.send("asdfs");
+//   next();
+// });
+// console.log("???????????");
+
+//socket.io
+let usersname = {};
+var server = require('http').createServer(app)
+  , io = require('socket.io')(server);
+
+
+
+require("./utility/chat").chat(io , usersname);
 
 app.use("/api",ctrlRoutes);
 

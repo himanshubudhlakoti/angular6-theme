@@ -15,6 +15,11 @@ import { RegistationService } from "./services/register.service";
 import { LoginService } from "./services/login.service";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 
+
+//global toaster dependecies
+// import { ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
     imports :
     [
@@ -23,13 +28,13 @@ import { ForgotPasswordComponent } from "./forgot-password/forgot-password.compo
         ReactiveFormsModule,
         FormsModule,
         CommonModule,
-        HttpClientModule
+        HttpClientModule,
 
      ],
     declarations : [SignupSigninComponent,
         LoginComponent,
         RegisterComponent,
         ForgotPasswordComponent],
-    providers : [RegistationService ,LoginService]
+    providers : [RegistationService ,LoginService ]
 })
 export class SignupSigninMoudle {}

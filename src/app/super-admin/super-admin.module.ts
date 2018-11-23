@@ -9,12 +9,15 @@ import { MainLayoutModule } from '../mainlayout/mainlayout.module';
 import { SuperAdminComponent } from './super-admin.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ListuserComponent } from './listuser/listuser.component';
+import { XslsComponent } from './xsls/xsls.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { ChatComponent } from './chat/chat.component';
+import { ToastrService } from 'ngx-toastr';
+
 
 import { SuperAdminServices } from './superAdminServices/usersService';
-import { XslsComponent } from './xsls/xsls.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
 @NgModule({
     imports :
     [
@@ -23,15 +26,18 @@ import { CommonModule } from '@angular/common';
         MainLayoutModule,
         FormsModule,
         CommonModule
+    ],
+    providers :
+    [   SuperAdminServices ,ToastrService
         
     ],
-    providers : [SuperAdminServices],
-    
     declarations :
     [ SuperAdminComponent ,
       AddUserComponent,
       ListuserComponent,
-      XslsComponent
-     ]
+      XslsComponent,
+      GalleryComponent,
+      ChatComponent
+    ]
 })
 export class SuperAdminModule{}
