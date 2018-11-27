@@ -3,6 +3,8 @@ var json2xls = require('json2xls');
 var fs = require('fs');
 var waterfall = require('async-waterfall');
 
+var convertapi = require('convertapi')('JCKNLpyNkFwlExEN');
+
 // var userDetailModel = mongoose.model("userDetail");
 var userDetailModel = require("../schema/userDetail");
 let constants = require("../utility/constants");
@@ -15,7 +17,8 @@ module.exports =
     login : login,
     forgotPassword : forgotPassword,
     generateXls : generateXls,
-    getAllUsers : getAllUsers
+    getAllUsers : getAllUsers,
+    convertApi : convertApi
 }
 function addUser(req ,res)
 {
@@ -139,13 +142,22 @@ function generateXls(req , res)
     updatedAt: new Date()
     }
 
-    var xls = json2xls(userData);
-    fs.writeFileSync(`./public/assets/${fileName}.xlsx`, xls, 'binary');
-    res.json({
-        status: 200,
-        data: 'validuser',
-        path : `localhost:3000/assets/${fileName}.xlsx`
-    });
+        var file = './public/images/upload_9c71b31767f52100847945ade8efbaeb.png';
+        res.download(file, (err)=>
+        {   if(err)
+            {
+                console.log("err is >>>>", err);
+
+            }
+        }); 
+
+    // var xls = json2xls(userData);
+    // fs.writeFileSync(`./public/assets/${fileName}.xlsx`, xls, 'binary');
+    // res.json({
+    //     status: 200,
+    //     data: 'validuser',
+    //     path : `localhost:3000/assets/${fileName}.xlsx`
+    // });
 }
 
 function getAllUsers(req ,res)
@@ -174,4 +186,22 @@ function getAllUsers(req ,res)
             res.json({"status" : 200 , data : usersData});
         }
     })
+   
+}
+function convertApi(req , res)
+{  console.log("inside convert>>>>>>>>" ,Date.now());
+   let url= `./public/pdf/file${Date.now()}.pdf`;
+   convertapi.convert('pdf', { File: './public/images/upload_9a2f6a5ccba6025c80bf0e1754fd7abe.docx' })
+  .then(function(result) {
+    // get converted file url
+    console.log("Converted file url: " + result.file.url);
+    // console.log("Converted file url>>>>>>>>: " , JSON.parse(result.file));
+
+
+    // save to file
+    return result.file.save(url);
+  })
+  .then(function(file) {
+    console.log("File saved: " + file);
+  })
 }

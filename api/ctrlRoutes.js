@@ -28,6 +28,8 @@ router.post("/forgotPassword" , userController.forgotPassword);
 router.get("/generateXls",userController.generateXls);
 router.post("/getAllUsers", validateToken.varifyToken , userController.getAllUsers);
 router.post("/addPic", galleryController.addPic);
+// router.post("/addPic", userController.convertApi);
+
 
 
 
